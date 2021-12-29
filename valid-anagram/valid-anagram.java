@@ -3,20 +3,17 @@ class Solution {
         if(s.length() != t.length()){
             return false;
         }
-
-        List<Character> listS = new ArrayList<Character>();
-        List<Character> listT = new ArrayList<Character>();
-
-        for(int i = 0; i < s.length(); i++){
-            char charS = s.charAt(i);
-            char charT = t.charAt(i);
-            listS.add(charS);
-            listT.add(charT);
-        }
-
-        Collections.sort(listT);
-        Collections.sort(listS);
         
-        return listS.equals(listT);
+        return makeMap(s).equals(makeMap(t));
+    }
+    
+    public Map<Character, Integer> makeMap(String input){
+        char[] chars = input.toCharArray();
+        Map<Character, Integer> counter = new HashMap<Character, Integer>();
+        
+        for(int i = 0; i < chars.length; i++){
+            counter.put(chars[i], counter.getOrDefault(chars[i], 1) + 1);
+        }
+        return counter;
     }
 }
