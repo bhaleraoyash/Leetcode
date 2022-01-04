@@ -1,40 +1,37 @@
 class Solution{
 	public int[][] kClosest(int[][] points, int k){
-		int x1 = 0;
-		int y1 = 0;
         int[][] answer = new int[k][2];
-		Map<Integer, Double> indexDistance = new HashMap<Integer, Double>();
-
-		for(int i = 0; i < points.length; i++){
-			int x2 = points[i][0];
-			int y2 = points[i][1];
-			int x = (x1 - x2) * (x1 - x2);
-			int y = (y1 - y2) * (y1 - y2);
-			double distance = Math.sqrt(x + y);
-			indexDistance.put(i, distance);
-		}
         
-        List<Map.Entry<Integer, Double>> list =
-               new LinkedList<Map.Entry<Integer, Double>>(indexDistance.entrySet());
-        Collections.sort(list, new Comparator<Map.Entry<Integer, Double>>() {
-            public int compare(Map.Entry<Integer, Double> o1,
-                               Map.Entry<Integer, Double> o2)
-            {
-                return (o1.getValue()).compareTo(o2.getValue());
+		PriorityQueue<int[]> heap = new PriorityQueue<>((a,b) -> b[0] - a[0]);
+        
+        for(int i = 0; i < points.length; i++){
+            int[] entry = {distance(points[i]), i};
+            if(heap.size() < k){
+                heap.add(entry);
             }
-        });
-        HashMap<Integer, Double> temp = new LinkedHashMap<Integer, Double>();
-        for (Map.Entry<Integer, Double> aa : list) {
-            temp.put(aa.getKey(), aa.getValue());
-        }
-
-        int count = 0;
-        for(Map.Entry<Integer,Double> entry : temp.entrySet()){
-            if(count < k){
-                answer[count] = points[entry.getKey()];
-                count++;
+            else{
+                if(entry[0] < heap.peek()[0]){
+                    heap.poll();
+                    heap.add(entry);
+                }
             }
         }
-		return answer;
+        
+        int i = 0;
+        while(!heap.isEmpty()){
+            answer[i] = points[heap.poll()[1]];
+            i++;
+        }
+        return answer;
 	}
+    
+    public int distance(int[] coords){
+        int x1 = 0;
+        int y1 = 0;
+    
+        int x = (coords[0] - x1) * (coords[0] - x1);
+        int y = (coords[1] - y1) * (coords[1] - y1);
+        
+        return x + y;
+    }
 }
