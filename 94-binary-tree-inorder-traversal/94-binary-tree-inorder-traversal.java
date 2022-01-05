@@ -22,9 +22,6 @@ class Solution {
         }    
         inorderTraversal(root.left);
         nodes.add(root.val);
-        if(root.right == null){
-            return nodes;
-        }
         inorderTraversal(root.right);
         
         return nodes;
