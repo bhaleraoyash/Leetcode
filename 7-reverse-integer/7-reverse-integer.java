@@ -1,11 +1,15 @@
 class Solution {
     public int reverse(int x) {
-        String sb = new StringBuilder().append(Math.abs(x)).reverse().toString();
-        try{
-            return (x < 0) ? Integer.parseInt(sb) * -1 : Integer.parseInt(sb);
+        int answer = 0;
+        
+        while(x != 0){
+            int mod = x % 10;
+            x /= 10;
+            if(answer > Integer.MAX_VALUE / 10 || answer < Integer.MIN_VALUE / 10){
+                return 0;
+            }
+            answer = answer * 10 + mod;
         }
-        catch(NumberFormatException e){
-            return 0;
-        }
+        return answer;
     }
 }
