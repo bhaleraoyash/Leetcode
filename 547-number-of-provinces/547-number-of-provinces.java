@@ -1,7 +1,6 @@
 class Solution {
     public int findCircleNum(int[][] isConnected) {
         UnionFind uf = new UnionFind(isConnected.length);
-        Set<Integer> provinces = new HashSet<Integer>();
         
         for(int i = 0; i < isConnected.length; i++){
             for(int j = 0; j < isConnected[i].length; j++){
@@ -11,14 +10,15 @@ class Solution {
             }
         }
         
+        int count = 0;
         int[] root = uf.returnRoot();
         for(int i = 0; i < root.length; i++){
             if(i == root[i]){
-                provinces.add(i);
+                count++;
             }
         }
         
-        return provinces.size();
+        return count;
     }
 }
 
