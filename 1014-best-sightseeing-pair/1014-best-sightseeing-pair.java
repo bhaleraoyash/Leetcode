@@ -1,16 +1,12 @@
 class Solution {
     public int maxScoreSightseeingPair(int[] values) {
-        int res = Integer.MIN_VALUE;
-        int left = values[0];
-        int right = 0;
+        int best = values[0];
+        int ans = 0;
 
-        for(int i = 1; i < values.length; i++ )
-        {
-            right = values[i] - i;
-            res = Math.max(res, left + right);
-            left = Math.max(left, (values[i] + i));
+        for(int j = 1; j < values.length; j++){
+            ans = Math.max(ans, best + (values[j] - j));
+            best = Math.max(best, (values[j] + j));
         }
-
-        return res;
+        return ans;
     }
 }
