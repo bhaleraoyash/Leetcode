@@ -2,12 +2,14 @@ class Solution {
 
     int[] original;
     int[] shuffled;
+    Random random;
     
     public Solution(int[] nums) {
         original = new int[nums.length];
         shuffled = new int[nums.length];
         original = nums.clone();
         shuffled = nums.clone();
+        random = new Random();
     }
     
     public int[] reset() {
@@ -15,15 +17,11 @@ class Solution {
     }
     
     public int[] shuffle() {
-        List<Integer> temp = new ArrayList<Integer>();
-        for(int i = 0; i < shuffled.length; i++){
-            temp.add(shuffled[i]);
-        }
-        Collections.shuffle(temp);
-        int index = 0;
-        for(int j : temp){
-            shuffled[index] = j;
-            index++;
+        for(int i = shuffled.length - 1; i > 0; i--){
+            int r = random.nextInt(i + 1);
+            int temp = shuffled[i];
+            shuffled[i] = shuffled[r];
+            shuffled[r] = temp;
         }
         return shuffled;
     }
