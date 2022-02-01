@@ -1,24 +1,28 @@
 class Solution{
 	public boolean canReorderDoubled(int[] arr){
-		Map<Integer, Integer> freq = new TreeMap<Integer, Integer>();
+		TreeMap<Integer, Integer> counter = new TreeMap<Integer, Integer>();
 
 		for(int i : arr){
-			freq.put(i, freq.getOrDefault(i, 0) + 1);
+			counter.put(i, counter.getOrDefault(i, 0) + 1);
 		}
 
-		for(int i : freq.keySet()){
-			if(freq.get(i) == 0){
-                continue;
-            }
-            int twice = i < 0 ? i / 2 : 2 * i;
-            if(i < 0 && i % 2 != 0){
-                return false;
-            }
-            if(freq.get(i) > freq.getOrDefault(twice, 0)){
-                return false;
-            }
-            freq.put(twice, freq.get(twice) - freq.get(i));
-        }
+		for(int num : counter.keySet()){
+			if(counter.get(num) == 0){
+				continue;
+			}
+
+			int target = num < 0 ? num / 2 : num * 2;
+
+			if(num < 0 && num % 2 != 0){
+				return false;
+			}
+
+			if(counter.get(num) > counter.getOrDefault(target, 0)){
+				return false;
+			}
+
+			counter.put(target, counter.get(target) - counter.get(num));
+		}
 		return true;
 	}
 }
