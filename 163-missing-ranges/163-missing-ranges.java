@@ -13,7 +13,7 @@ class Solution{
 			}
 			lower = nums[i] + 1;
 		}
-		
+
 		if(lower < upper){
 			answer.add(lower + "->" + upper);
 		}
