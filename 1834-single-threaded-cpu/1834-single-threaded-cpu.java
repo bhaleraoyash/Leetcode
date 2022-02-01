@@ -11,12 +11,13 @@ class Solution {
             return Integer.compare(a.enqueueTime, b.enqueueTime);
         });
         
-        PriorityQueue<Task> heap = new PriorityQueue<Task>((a, b) -> {
-            if(a.processingTime == b.processingTime){
-                return Integer.compare(a.index, b.index);
-            }
-            return Integer.compare(a.processingTime, b.processingTime);
-        });
+        PriorityQueue<Task> heap = new PriorityQueue<Task>((a, b) -> a.processingTime == b.processingTime ? a.index - b.index : a.processingTime - b.processingTime);
+        // {
+        //     if(a.processingTime == b.processingTime){
+        //         return Integer.compare(a.index, b.index);
+        //     }
+        //     return Integer.compare(a.processingTime, b.processingTime);
+        // });
         
         int[] ans = new int[n];
         int ansIndex = 0;
