@@ -1,53 +1,29 @@
 class Solution {
     public int[] getOrder(int[][] tasks) {
-        int n = tasks.length;
-        Task[] arr = new Task[n];
+        PriorityQueue<int[]> allTasks = new PriorityQueue<int[]>((a, b) -> a[1] - b[1]);
+        PriorityQueue<int[]> possibleTasks = new PriorityQueue<int[]>((a, b) -> a[2] == b[2] ? a[0] - b[0] : a[2] - b[2]);
+        int[] answer = new int[tasks.length];
         
-        for(int i = 0; i < n; i++){
-            arr[i] = new Task(i, tasks[i][0], tasks[i][1]);
+        for(int i = 0; i < tasks.length; i++){
+            allTasks.add(new int[]{i, tasks[i][0], tasks[i][1]});
         }
         
-        Arrays.sort(arr, (a, b) -> {
-            return Integer.compare(a.enqueueTime, b.enqueueTime);
-        });
+        int currentTime = -1;
+        int pointer = 0;
         
-        PriorityQueue<Task> heap = new PriorityQueue<Task>((a, b) -> a.processingTime == b.processingTime ? a.index - b.index : a.processingTime - b.processingTime);
-        // {
-        //     if(a.processingTime == b.processingTime){
-        //         return Integer.compare(a.index, b.index);
-        //     }
-        //     return Integer.compare(a.processingTime, b.processingTime);
-        // });
-        
-        int[] ans = new int[n];
-        int ansIndex = 0;
-        int taskIndex = 0;
-        int currentTime = 0;
-        
-        while(ansIndex < n){
-            while(taskIndex < n && arr[taskIndex].enqueueTime <= currentTime){
-                heap.offer(arr[taskIndex++]);
+        while(allTasks.size() > 0 || possibleTasks.size() > 0){
+            if(allTasks.size() > 0 && possibleTasks.size() == 0 && currentTime < allTasks.peek()[1]){
+                currentTime = allTasks.peek()[1];
             }
-            if(heap.isEmpty()){
-                currentTime = arr[taskIndex].enqueueTime;
+            
+            while(allTasks.size() > 0 && currentTime >= allTasks.peek()[1]){
+                possibleTasks.add(allTasks.poll());
             }
-            else{
-                currentTime += heap.peek().processingTime;
-                ans[ansIndex++] = heap.poll().index;
-            }
+            
+            int[] task = possibleTasks.poll();
+            currentTime += task[2];
+            answer[pointer++] = task[0];
         }
-        return ans;
-    }
-}
-
-class Task{
-    int index;
-    int enqueueTime;
-    int processingTime;
-    
-    Task(int index, int enqueueTime, int processingTime){
-        this.index = index;
-        this.enqueueTime = enqueueTime;
-        this.processingTime = processingTime;
+        return answer;
     }
 }
