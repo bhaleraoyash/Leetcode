@@ -8,10 +8,10 @@ class Solution{
 		minHeap.add(intervals[0][1]);
 
 		for(int i = 1; i < intervals.length; i++){
-            minHeap.add(intervals[i][1]);
 			if(intervals[i][0] >= minHeap.peek()){
 				minHeap.poll();
 			}
+            minHeap.add(intervals[i][1]);
 		}
 
 		return minHeap.size();
