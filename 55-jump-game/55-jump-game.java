@@ -1,12 +1,13 @@
-class Solution {
-    public boolean canJump(int[] nums) {
-        int last_good = nums.length - 1;
-        
-        for(int i = nums.length - 2; i >= 0; i--){
-            if(nums[i] + i >= last_good){
-                last_good = i;
-            }
-        }
-        return last_good == 0;
-    }
+class Solution{
+	public boolean canJump(int[] nums){
+		int lastGoodIndex = nums.length - 1;
+
+		for(int i = nums.length - 2; i >= 0; i--){
+			if(i + nums[i] >= lastGoodIndex){
+				lastGoodIndex = i;
+			}
+		}
+
+		return lastGoodIndex == 0;
+	}
 }
