@@ -6,7 +6,7 @@ class Solution{
 			if(tokens[i].equals("+")){
 				int num1 = numbers.pop();
 				int num2 = numbers.pop();
-				numbers.push(num1 + num2);
+				numbers.push(num2 + num1);
 			}
 			else if(tokens[i].equals("-")){
 				int num1 = numbers.pop();
@@ -16,7 +16,7 @@ class Solution{
 			else if(tokens[i].equals("*")){
 				int num1 = numbers.pop();
 				int num2 = numbers.pop();
-				numbers.push(num1 * num2);
+				numbers.push(num2 * num1);
 			}
 			else if(tokens[i].equals("/")){
 				int num1 = numbers.pop();
@@ -27,7 +27,6 @@ class Solution{
 				numbers.push(Integer.valueOf(tokens[i]));
 			}
 		}
-		
-		return numbers.pop();
+		return numbers.peek();
 	}
 }
