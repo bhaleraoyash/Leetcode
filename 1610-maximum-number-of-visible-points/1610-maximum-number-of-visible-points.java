@@ -3,10 +3,10 @@ class Solution{
 		List<Double> angles = new ArrayList<Double>();
 		int count = 0;
 
-		for(List<Integer> point : points){
-			int dx = point.get(0) - location.get(0);
-			int dy = point.get(1) - location.get(1);
-
+		for(List<Integer> p : points){
+			int dx = p.get(0) - location.get(0);
+			int dy = p.get(1) - location.get(1);
+			
 			if(dx == 0 && dy == 0){
 				count++;
 				continue;
@@ -16,19 +16,20 @@ class Solution{
 		}
 
 		Collections.sort(angles);
-		int res = count;
 		List<Double> temp = new ArrayList<Double>(angles);
 		for(Double d : angles){
 			temp.add(d + 360);
 		}
-			
+		
 		int j = 0;
+        int answer = count;
+        
 		for(int i = 0; i < temp.size(); i++){
 			while(temp.get(i) - temp.get(j) > angle){
 				j++;
 			}
-			res = Math.max(res, count + i - j + 1);
+			answer = Math.max(answer, count + i - j + 1);
 		}
-		return res;
+		return answer;
 	}
 }
