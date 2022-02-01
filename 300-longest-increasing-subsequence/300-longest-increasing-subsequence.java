@@ -12,7 +12,6 @@ class Solution{
                 answer.add(num);
             }
         }
-        
 		return answer.size();
 	}
 }
