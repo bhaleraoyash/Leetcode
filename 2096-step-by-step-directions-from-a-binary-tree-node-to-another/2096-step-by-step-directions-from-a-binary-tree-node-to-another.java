@@ -13,73 +13,69 @@
  *     }
  * }
  */
-class Solution{
-	StringBuilder source = new StringBuilder();
-	StringBuilder destination = new StringBuilder();
-
-	public String getDirections(TreeNode root, int startValue, int destValue){
-		StringBuilder answer = new StringBuilder();
-
-		dfs(root, startValue, true);
-		dfs(root, destValue, false);
+class Solution {
+    StringBuilder source = new StringBuilder();
+    StringBuilder destination = new StringBuilder();
+    
+    public String getDirections(TreeNode root, int startValue, int destValue) {
+        if(root == null){
+            return "";
+        }
+        String answer = "";
+        
+        find(root, startValue, true);
+        find(root, destValue, false);
         
         source.reverse();
         destination.reverse();
-		
-		int i = 0;
-		int j = 0;
-		while(i < source.length() && j < destination.length()){
-			if(source.charAt(i) == destination.charAt(j)){
-				i++;
-				j++;
-			}
-			else{
-				break;
-			}
-		}
-
-		while(i < source.length()){
-			answer.append("U");
-			i++;
-		}
-
-		while(j < destination.length()){
-			answer.append(destination.charAt(j));
-			j++;
-		}
-		return answer.toString();
-	}
-
-	public boolean dfs(TreeNode root, int node, boolean sourceFlag){
-		if(root == null){
-			return false;
-		}
-
-		if(root.val == node){
-			return true;
-		}
-
-		boolean left = dfs(root.left, node, sourceFlag);
-		if(left){
-			if(sourceFlag){
-				source.append("L");
-			}
-			else{
-				destination.append("L");
-			}
+        
+        int i = 0;
+        while(i < source.length() && i < destination.length()){
+            if(source.charAt(i) == destination.charAt(i)){
+                i++;
+            }
+            else{
+                break;
+            }
+        }
+        
+        
+        for(int j = i; j < source.length(); j++){
+            answer += "U";
+        }
+        
+        answer += destination.substring(i);
+        
+        return answer.toString();
+    }
+    
+    public boolean find(TreeNode root, int node, boolean isSource){
+        if(root == null){
+            return false;
+        }
+        if(root.val == node){
             return true;
-		}
-
-		boolean right = dfs(root.right, node, sourceFlag);
-		if(right){
-			if(sourceFlag){
-				source.append("R");
-			}
-			else{
-				destination.append("R");
-			}
+        }
+        boolean left = find(root.left, node, isSource);
+        if(left){
+            if(isSource){
+                source.append("L");
+            }
+            else{
+                destination.append("L");
+            }
             return true;
-		}
-		return false;
-	}
+        }
+        boolean right = find(root.right, node, isSource);
+        if(right){
+            if(isSource){
+                source.append("R");
+            }
+            else{
+                destination.append("R");
+            }
+            return true;
+        }
+        return false;
+    }
 }
