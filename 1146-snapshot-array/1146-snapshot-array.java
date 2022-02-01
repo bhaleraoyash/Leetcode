@@ -1,29 +1,26 @@
 class SnapshotArray {
 
-    List<Map<Integer, Integer>> snaps = new ArrayList<Map<Integer, Integer>>();
+    List<TreeMap<Integer, Integer>> snaps = new ArrayList<TreeMap<Integer, Integer>>();
     int currentSnapId;
     
     public SnapshotArray(int length) {
-        snaps.add(new HashMap<Integer, Integer>());    
+        for(int i = 0; i < length; i++){
+            snaps.add(new TreeMap<Integer, Integer>());
+            snaps.get(i).put(0, 0);
+        }
+        currentSnapId = 0;
     }
     
     public void set(int index, int val) {
-        snaps.get(currentSnapId).put(index, val);
+        snaps.get(index).put(currentSnapId, val);
     }
     
     public int snap() {
-        snaps.add(new HashMap<Integer, Integer>());
         return currentSnapId++;
     }
     
     public int get(int index, int snap_id) {
-        for(int i = snap_id; i >= 0; i--){
-            Integer val = snaps.get(i).get(index);
-            if(val != null){
-                return val;
-            }
-        }
-        return 0;
+        return snaps.get(index).floorEntry(snap_id).getValue();
     }
 }
 
