@@ -3,17 +3,17 @@ class Solution{
         if(intervals.length == 0){
             return 0;
         }
-        Arrays.sort(intervals, (a,b) -> Integer.compare(a[0], b[0]));
-        PriorityQueue<Integer> heap = new PriorityQueue<Integer>();
-        heap.add(intervals[0][1]);
-        
-		
+		Arrays.sort(intervals, (a, b) -> a[0] - b[0]);
+		PriorityQueue<Integer> minHeap = new PriorityQueue<Integer>((a, b) -> a - b);
+		minHeap.add(intervals[0][1]);
+
 		for(int i = 1; i < intervals.length; i++){
-            if(heap.peek() <= intervals[i][0]){
-                heap.poll();
-            }
-            heap.add(intervals[i][1]);
+			if(intervals[i][0] >= minHeap.peek()){
+				minHeap.poll();
+			}
+			minHeap.add(intervals[i][1]);
 		}
-		return heap.size();
+
+		return minHeap.size();
 	}
 }
