@@ -1,65 +1,46 @@
 class Solution {
     public boolean canFinish(int numCourses, int[][] prerequisites) {
-        if(prerequisites.length == 0){
-            return true;
-        }
-        
-        Map<Integer, GNode> graph = new HashMap<Integer, GNode>();
-        
-        for(int[] relation : prerequisites){
-            GNode prevCourse = getCreateGNode(graph, relation[1]);
-            GNode nextCourse = getCreateGNode(graph, relation[0]);
-            
-            prevCourse.outNodes.add(relation[0]);
-            nextCourse.inDegrees += 1;
-        }
-        
-        int totalDeps = prerequisites.length;
-        LinkedList<Integer> nodepCourses = new LinkedList<Integer>();
-        
-        for(Map.Entry<Integer, GNode> entry : graph.entrySet()){
-            GNode node = entry.getValue();
-            if(node.inDegrees == 0){
-                nodepCourses.add(entry.getKey());
-            }
-        }
-        
-        int removedEdges = 0;
-        while(nodepCourses.size() > 0){
-            Integer course = nodepCourses.pop();
-            
-            for(Integer nextCourse : graph.get(course).outNodes){
-                GNode childNode = graph.get(nextCourse);
-                childNode.inDegrees -= 1;
-                removedEdges += 1;
-                if(childNode.inDegrees == 0){
-                    nodepCourses.add(nextCourse);
-                }
-            }
-        }
-        
-        if(removedEdges != totalDeps){
-            return false;
-        }
-        else{
-            return true;
-        }
-    }
-    
-    public GNode getCreateGNode(Map<Integer, GNode> graph, Integer course){
-        GNode node = null;
-        if(graph.containsKey(course)){
-            node = graph.get(course);
-        }
-        else{
-            node = new GNode();
-            graph.put(course, node);
-        }
-        return node;
-    }
-}
+        Map<Integer, List<Integer>> adjList = new HashMap<Integer, List<Integer>>();
+		int[] indegree = new int[numCourses];
+		int[] order = new int[numCourses];
+	
+		for(int i = 0; i < prerequisites.length; i++){
+			int src = prerequisites[i][1];
+			int dest = prerequisites[i][0];
 
-class GNode{
-    public Integer inDegrees = 0;
-    public List<Integer> outNodes = new LinkedList<Integer>();
+			List<Integer> temp = adjList.getOrDefault(src, new ArrayList<Integer>());
+			temp.add(dest);
+			adjList.put(src, temp);
+			indegree[dest] += 1;
+		}
+
+		Queue<Integer> q = new LinkedList<Integer>();
+		for(int i = 0; i < numCourses; i++){
+			if(indegree[i] == 0){
+				q.add(i);
+			}
+		}
+
+		int i = 0;
+		while(!q.isEmpty()){
+			int node = q.remove();
+			order[i] = node;
+			i++;
+	
+			if(adjList.containsKey(node)){
+				for(Integer neighbor : adjList.get(node)){
+					indegree[neighbor]--;
+				
+					if(indegree[neighbor] == 0){
+						q.add(neighbor);
+					}
+				}
+			}
+		}
+		
+		if(i == numCourses){
+			return true;
+		}
+		return false;
+    }
 }
