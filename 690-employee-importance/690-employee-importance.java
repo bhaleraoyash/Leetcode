@@ -9,21 +9,22 @@ class Employee {
 
 class Solution {
     public int getImportance(List<Employee> employees, int id) {
-        Map<Integer, Employee> employeeMap = new HashMap<Integer, Employee>();
         Stack<Employee> stack = new Stack<Employee>();
+        Map<Integer, Employee> map = new HashMap<Integer, Employee>();
         int answer = 0;
         
         for(Employee e : employees){
-            employeeMap.put(e.id, e);
+            map.put(e.id, e);
         }
         
-        stack.push(employeeMap.get(id));
+        stack.push(map.get(id));
         
         while(!stack.isEmpty()){
             Employee temp = stack.pop();
             answer += temp.importance;
-            for(int empId : temp.subordinates){
-                stack.push(employeeMap.get(empId));
+            
+            for(int i : temp.subordinates){
+                stack.push(map.get(i));
             }
         }
         
