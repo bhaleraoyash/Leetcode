@@ -9,8 +9,8 @@ class Solution {
             indices.put(fruits[right], right);
             if(indices.size() > 2){
                 int min = Collections.min(indices.values());
-                indices.remove(fruits[min]);
                 left = min + 1;
+                indices.remove(fruits[min]);
             }
             answer = Math.max(answer, right - left + 1);
             right++;
