@@ -4,12 +4,8 @@ class Solution{
 		int answer = 0;
 		
 		for(int i = 0; i < prices.length; i++){
-			if(prices[i] < min){
-				min = prices[i];
-			}
-			if(prices[i] - min > answer){
-				answer = prices[i] - min;
-			}
+            min = Math.min(min, prices[i]);
+            answer = Math.max(answer, prices[i] - min);
 		}
 		return answer;
 	}
