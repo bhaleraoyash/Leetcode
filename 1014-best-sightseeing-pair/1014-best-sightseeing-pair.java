@@ -4,9 +4,10 @@ class Solution {
         int answer = 0;
         
         for(int i = 1; i < values.length; i++){
-            answer = Math.max(answer, left + values[i] - i);
+            answer = Math.max(answer, left + (values[i] - i));
             left = Math.max(left, values[i] + i);
         }
+        
         return answer;
     }
 }
