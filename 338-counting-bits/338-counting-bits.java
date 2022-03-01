@@ -1,26 +1,27 @@
 class Solution {
     public int[] countBits(int n) {
-        int[] answer = new int[n + 1];
-        answer[0] = 0;
-        
-        for(int i = 1; i <= n; i++){
-            answer[i] = countOnes(i);
+	    int[] answer = new int[n + 1];
+
+        for(int i = 0; i <= n; i++){
+        int count = decimalToBinary(i);
+        answer[i] = count;
         }
-        
         return answer;
     }
-    
-    public int countOnes(int n){
-        int answer = 0;
-        
+
+    public int decimalToBinary(int n){
+        int[] binary = new int[10000];
+        int i = 0;
+        int count = 0;
+
         while(n > 0){
-            int temp = n % 2;
-            if(temp == 1){
-                answer++;
+            binary[i] = n % 2;
+            if(n % 2 == 1){
+                count++;
             }
-            n /= 2;
+            n = n / 2;
+            i++;
         }
-        
-        return answer;
+        return count;
     }
 }
