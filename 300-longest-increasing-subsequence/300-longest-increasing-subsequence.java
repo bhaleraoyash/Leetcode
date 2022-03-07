@@ -1,18 +1,18 @@
 class Solution {
     public int lengthOfLIS(int[] nums) {
-        TreeSet<Integer> answer = new TreeSet<Integer>();
+        TreeSet<Integer> temp = new TreeSet<Integer>();
         
         for(int i : nums){
-            Integer higherOrEqual = answer.ceiling(i);
+            Integer higherOrEqual = temp.ceiling(i);
             if(higherOrEqual == null){
-                answer.add(i);
+                temp.add(i);
             }
             else{
-                answer.remove(higherOrEqual);
-                answer.add(i);
+                temp.remove(higherOrEqual);
+                temp.add(i);
             }
         }
         
-        return answer.size();
+        return temp.size();
     }
 }
