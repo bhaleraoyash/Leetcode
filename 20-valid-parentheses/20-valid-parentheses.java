@@ -26,6 +26,6 @@ class Solution {
             }
         }
         
-        return brackets.isEmpty();
+        return brackets.isEmpty() ? true : false;
     }
 }
