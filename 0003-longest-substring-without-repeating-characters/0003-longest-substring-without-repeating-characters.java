@@ -11,9 +11,10 @@ class Solution {
                 count += 1;
             }
             else{
-                int temp = chars.get(c);
+                int temp = chars.get(c) + 1;
                 chars.clear();
-                count = 0;
+                chars.put(s.charAt(temp), temp);
+                count = 1;
                 i = temp;
             }
             answer = Math.max(answer, count);
