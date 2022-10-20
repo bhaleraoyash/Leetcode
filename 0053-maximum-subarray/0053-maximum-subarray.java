@@ -4,10 +4,7 @@ class Solution{
         int currentSum = nums[0];
 
 		for(int i = 1; i < nums.length; i++){
-            currentSum += nums[i];
-			if(nums[i] > currentSum){
-                currentSum = nums[i];
-            }
+            currentSum = Math.max(nums[i], currentSum + nums[i]);
             answer = Math.max(answer, currentSum);
 		}
 
