@@ -1,19 +1,21 @@
 class Solution {
-    public int numPairsDivisibleBy60(int[] time) { 
-        Map<Integer, Integer> remCounter = new HashMap<Integer, Integer>();
+    public int numPairsDivisibleBy60(int[] time) {
+        Map<Integer, Integer> remainder = new HashMap<Integer, Integer>();
         int answer = 0;
         
         for(int i = 0; i < time.length; i++){
-            int rem = time[i] % 60;
-            int diff = 60 - rem;
-            if(rem == 0 && remCounter.containsKey(0)){
-                answer += remCounter.get(0);
+            int rem1 = time[i] % 60;
+            int rem2 = 60 - rem1;
+            if(rem1 == 0 && remainder.containsKey(0)){
+                answer += remainder.get(rem1);
             }
-            else if(remCounter.containsKey(diff)){
-                answer += remCounter.get(diff);
+            if(remainder.containsKey(rem2)){
+                answer += remainder.get(rem2);
             }
-            remCounter.put(rem, remCounter.getOrDefault(rem, 0) + 1);
+            remainder.put(rem1, remainder.getOrDefault(rem1, 0) + 1);
         }
+        
+        System.out.println(remainder);
         
         return answer;
     }
