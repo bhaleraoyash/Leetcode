@@ -15,8 +15,6 @@ class Solution {
             remainder.put(rem1, remainder.getOrDefault(rem1, 0) + 1);
         }
         
-        System.out.println(remainder);
-        
         return answer;
     }
 }
