@@ -14,7 +14,6 @@ class Solution {
             strings.put(strs[i], array_list);
             
         }
-        System.out.println(strings);
         
         for(String s1 : strs){
             List<Character> chars = strings.get(s1);
