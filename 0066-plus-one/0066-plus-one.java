@@ -11,9 +11,6 @@ class Solution {
         }
         
         answer[0] = 1;
-        for(int i = 1; i < answer.length; i++){
-            answer[i] = digits[i - 1];
-        }
         
         return answer;
     }
