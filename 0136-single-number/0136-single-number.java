@@ -1,17 +1,11 @@
 class Solution {
     public int singleNumber(int[] nums) {
-        Map<Integer, Integer> counter = new HashMap<Integer, Integer>();
+        int answer = 0;
         
         for(int i = 0; i < nums.length; i++){
-            counter.put(nums[i], counter.getOrDefault(nums[i], 0) + 1);
+            answer ^= nums[i];
         }
         
-        for(int key : counter.keySet()){
-            if(counter.get(key) == 1){
-                return key;
-            }
-        }
-        
-        return -1;
+        return answer;
     }
 }
