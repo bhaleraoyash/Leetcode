@@ -1,5 +1,3 @@
-import java.util.*;
-
 class Solution {
     public String removeDuplicates(String s, int k) {
         Stack<Pair<Character, Integer>> stack = new Stack<Pair<Character, Integer>>();
