@@ -7,15 +7,16 @@ class Solution {
         while(slider >= 0){
             int firstElement = index1 >= 0 ? nums1[index1] : Integer.MIN_VALUE;
             int secondElement = index2 >= 0 ? nums2[index2] : Integer.MIN_VALUE;
-            if(firstElement > secondElement){
-                nums1[slider] = firstElement;
+            
+            if(secondElement > firstElement){
+                nums1[slider] = secondElement;
+                index2--;
                 slider--;
-                index1--;
             }
             else{
-                nums1[slider] = secondElement;
+                nums1[slider] = firstElement;
+                index1--;
                 slider--;
-                index2--;
             }
         }
     }
