@@ -1,31 +1,23 @@
 class MovingAverage {
-    
-    List<Double> numbers;
-    int index = 0;
-    double sum = 0;
-    double windowSize;
 
+    List<Double> numbers = new ArrayList<Double>();
+    int size = 0;
+    double sum = 0;
+    int index = 0;
+    
     public MovingAverage(int size) {
-        windowSize = size;
-        numbers = new ArrayList<Double>();
+        this.size = size;
     }
     
     public double next(int val) {
-        double answer = 0;
-        numbers.add(Double.valueOf(val));
-        // System.out.println(numbers);
-        sum += val;
-        if(numbers.size() <= windowSize){
-            // System.out.println("sum : " + sum);
-            answer = sum / Double.valueOf(numbers.size());
-        }
-        else{
+        sum += (double)val;
+        numbers.add((double)val);
+        if(numbers.size() > size){
             sum -= numbers.get(index);
             index++;
-            answer = sum / windowSize;
+            return sum / size;
         }
-        
-        return answer;
+        return sum / numbers.size();
     }
 }
 
