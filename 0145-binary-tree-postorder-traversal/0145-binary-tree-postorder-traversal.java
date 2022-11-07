@@ -14,9 +14,8 @@
  * }
  */
 class Solution {
-    
     List<Integer> answer = new ArrayList<Integer>();
-
+    
     public List<Integer> postorderTraversal(TreeNode root) {
         if(root == null){
             return answer;
