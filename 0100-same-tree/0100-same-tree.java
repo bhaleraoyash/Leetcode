@@ -25,6 +25,6 @@ class Solution {
             return false;
         }
         
-        return isSameTree(p.right, q.right) && isSameTree(p.left, q.left);
+        return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
     }
 }
