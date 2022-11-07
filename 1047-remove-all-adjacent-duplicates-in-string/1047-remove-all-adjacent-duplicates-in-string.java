@@ -5,22 +5,17 @@ class Solution {
         
         for(int i = 0; i < s.length(); i++){
             char c = s.charAt(i);
-            if(stack.isEmpty()){
-                stack.push(c);
+            if(!stack.isEmpty() && c == stack.peek()){
+                stack.pop();
             }
             else{
-                if(stack.peek() == c){
-                    stack.pop();
-                }
-                else{
-                    stack.push(c);
-                }
+                stack.push(c);
             }
         }
         
         while(!stack.isEmpty()){
-            String str = String.valueOf(stack.pop());
-            answer = str + answer;
+            char c = stack.pop();
+            answer = String.valueOf(c) + answer;
         }
         
         return answer;
