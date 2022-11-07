@@ -14,7 +14,6 @@
  * }
  */
 class Solution {
-    
     List<Integer> answer = new ArrayList<Integer>();
     
     public List<Integer> preorderTraversal(TreeNode root) {
