@@ -4,16 +4,20 @@ class Solution {
             return false;
         }
         
-        while(n % 2 == 0){
-            n /= 2;
-        }
-        while(n % 3 == 0){
-            n /= 3;
-        }
-        while(n % 5 == 0){
-            n /= 5;
+        int[] prime = new int[]{2, 3, 5};
+        
+        for(int i : prime){
+            n = keepDividing(n, i);
         }
         
         return n == 1;
+    }
+    
+    public int keepDividing(int n, int prime){
+        while(n % prime == 0){
+            n /= prime;
+        }
+        
+        return n;
     }
 }
